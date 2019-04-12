@@ -1,0 +1,50 @@
+#include <EtherCard.h>
+
+void modal()
+{
+
+    char *page = PSTR(
+        "\r\n<div class='modal fade' id='btnControlModal' role='dialog'>\r\n"
+"<div class='modal-dialog modal-sm'>\r\n"
+"<div class='modal-content'>\r\n"
+"<div class='modal-header'>\r\n"
+"<button type='button' class='close' data-dismiss='modal'>&times;</button>\r\n"
+"<h4 class='modal-title'>Escolha o tempo para Reacionamento da Rede</h4>\r\n"
+"</div>\r\n"
+"<div class='modal-body'>\r\n"
+ "<form action='#' method='get'>\r\n"
+"<input type='hidden' name='BtnControl' value='true'>\r\n"
+"<input type='hidden' id='txtBtnModal' name='btn' value=''>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='30' checked>30 Seg</label>\r\n"
+"</div>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='60'>1 Min</label>\r\n"
+"</div>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='90'>1,5 Min</label>\r\n"
+"</div>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='120'>2 Min</label>\r\n"
+"</div>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='180'>3 Min</label>\r\n"
+"</div>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='240'>4 Min</label>\r\n"
+"</div>\r\n"
+"<div class='radio'>\r\n"
+"<label><input type='radio' name='optrd' value='300'>5 Min</label>\r\n"
+"</div>\r\n"
+"<br>\r\n"
+"<button type='submit' class='btn btn-primary'>Confirmar</button>\r\n"
+"</form>\r\n"
+"</div>\r\n"
+"<div class='modal-footer'>\r\n"
+"<button type='button' class='btn btn-default'  data-dismiss='modal'>Close</button>\r\n"
+"</div>\r\n"
+"</div>\r\n"
+"</div>\r\n"
+"</div>\r\n\r\n");
+    ether.fillAndSend(page, sizeof page);
+}
