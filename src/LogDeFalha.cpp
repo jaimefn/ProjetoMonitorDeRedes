@@ -29,7 +29,7 @@ void LogDeFalhas::grava_SD(byte identificador)
   fecha_arquivo();
 
   }else{
-      Serial.println("Erro ao Abrir Arquivo");
+      Serial.println("Erro ao Abrir Arquivo!");
   }
 
 }
