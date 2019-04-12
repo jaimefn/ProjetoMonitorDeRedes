@@ -19,7 +19,7 @@ void LogDeFalhas::LimparLog(){
 void LogDeFalhas::grava_SD(byte identificador)
 {
   String dateTime = relogio.GetTimeString();
-  if(abre_arquivo_gravacao("Dados.txt")){
+  if(abre_arquivo_gravacao("log.txt")){
   
     file.print(dateTime);
     file.print(" -> Rede[");
