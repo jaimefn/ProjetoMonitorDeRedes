@@ -18,7 +18,7 @@ void InsereWrapperAndMenuLateral()
             "        <li><a href='#' id='link_inter_controle'>Interface de Controle</a></li>\r\n"
             "        <li><a href='#' id='link_rede'>Configuracoes de Rede</a></li>\r\n"
             "        <li><a href='#' id='link_senha'>Alterar Senha</a></li>\r\n"
-            "        <li><a href='#' id='link_Data'>Data e Hora</a></li>\r\n"
+            "        <li><a href='#' id='link_data'>Data e Hora</a></li>\r\n"
             "        <li><a href='#' id='link_assistencia'>Assistencia tecnica</a></li>\r\n"
             "    </ul>\r\n"
             "</div>\r\n"
