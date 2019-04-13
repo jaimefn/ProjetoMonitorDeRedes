@@ -32,6 +32,7 @@ class PaginaHtml
     void CarregarPagina6();    
     void CarregarPagina7();
     void CarregarPagina8();
+    void CarregarPagina9();
     void CarregarRGCAjax();
     void EnviarCssFile(char *nome);
     void EnviarJsFile(char *nome);
@@ -57,6 +58,7 @@ extern void pagina_inicial();
 extern void pagina_ConfigDeRede();
 extern void pagina_ConfigPing();
 extern void pagina_ConfigInterface();
+extern void pagina_ConfigDataHora();
 extern void pagina_WDT();
 extern void pagina_MudarSenha();
 extern void pagina_AssistenciaTecnica();

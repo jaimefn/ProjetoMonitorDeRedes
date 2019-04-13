@@ -4,7 +4,7 @@ Relogio relogio;
 
 byte Relogio::monthDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-Time Relogio::bfTime;
+DateTime Relogio::bfTime;
 unsigned long lastNptTime = 10886400;
 bool Relogio::NtpRequestOk = false;
 
@@ -15,11 +15,11 @@ void Relogio::begin()
     SendNtpRequest();
 }
 
-void Relogio::SetTime(Time time)
+void Relogio::SetTime(DateTime time)
 {
 }
 
-Time Relogio::GetTime()
+DateTime Relogio::GetTime()
 {
     localTime(lastNptTime);
     return bfTime;

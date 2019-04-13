@@ -13,14 +13,16 @@
 #define _CONTROLE_SAIDAS_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog)
 #define _STATUS_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas)
 #define _LOGIN_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas) + sizeof(formStatus)
-#define _CONFIG_PING_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas) + sizeof(formStatus) + sizeof(formLogin)
-#define _TOTAL_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas) + sizeof(formStatus) + sizeof(formLogin)+ sizeof(formConfiguracaoDoPing)
+#define _NTP_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas) + sizeof(formStatus) + sizeof(formLogin)
+#define _CONFIG_PING_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas) + sizeof(formStatus) + sizeof(formLogin) + sizeof(formNtp)
+#define _TOTAL_POS sizeof(formConfiguracao) + sizeof(formEEPROM) + sizeof(formConfiguracaoDaRede) + sizeof(formWatchdog) + sizeof(formControleSaidas) + sizeof(formStatus) + sizeof(formLogin) + sizeof(formNtp) + sizeof(formConfiguracaoDoPing)
 
 class BancoDeDados
 {
   public:
     void RestaurarDadosDeFabrica(int cod_rst, bool rst);
     void SalvarformLogin(formLogin frmLogin);
+    void SalvarformNtp(formNtp frmNtp);
     void SalvarformStatus(formStatus frmStatus);
     void SalvarformControleSaidas(formControleSaidas frmControle);
     void SalvarformWatchdog(formWatchdog frmWD);
@@ -29,6 +31,7 @@ class BancoDeDados
     void SalvarformConfiguracaoDoPing(formConfiguracaoDoPing frmConfiguracaoDoPing);
     void SalvarformEEProm(formEEPROM frmEEProm);
     formLogin CarregarFormLogin();
+    formNtp CarregarFormNtp();
     formStatus CarregarFormStatus();
     formControleSaidas CarregarFormControleSaidas();
     formWatchdog CarregarFormWatchDog();

@@ -28,7 +28,8 @@ void MainOpenCabecalho(){
                     "<script src='https://cdn.rawgit.com/jaimefn/cdn/master/bootstrap.js'></script>\r\n"
                     
                     //"<script src='code.js'></script>\r\n"
-                    "<script src='https://cdn.rawgit.com/jaimefn/cdn/master/code_v2.js'></script>\r\n"
+                    //"<script src='https://cdn.rawgit.com/jaimefn/cdn/master/code_v2.js'></script>\r\n"
+                    "<script src='https://gitcdn.xyz/repo/jaimefn/cdn_teste/master/codigo_v3.js'></script>\r\n"
          
                     //"<script src='rgccore.js'></script>\r\n"
                     "<script src='https://cdn.rawgit.com/jaimefn/cdn/master/rgsccore.js'></script>\r\n"

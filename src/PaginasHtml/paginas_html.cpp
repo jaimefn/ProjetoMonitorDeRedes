@@ -280,6 +280,12 @@ void PaginaHtml::CarregarPagina8()
     ether.finalizeConn();
 }
 
+void PaginaHtml::CarregarPagina9()
+{
+    pagina_ConfigDataHora();
+    ether.finalizeConn();
+}
+
 void PaginaHtml::EnviarCssFile(char *nome)
 {                        
     EnviarArquivo(nome, "text/css");

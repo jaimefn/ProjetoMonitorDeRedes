@@ -78,21 +78,6 @@ void pagina_ConfigDeRede(){
   page = PSTR("'>\r\n"
               "<span class='help-block'>formato [ xx:xx:xx:xx:xx:xx ].</span>\r\n"
               "</div>\r\n"
-
-
-    "<div class='form-group'>\r\n"
-                "<label for='NTP'>Servidor NTP:</label>\r\n"
-                "<input name='NTP' type='text' pattern='\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}' class='form-control' id='NTP' value='");
-    ether.fillAndSend(page, sizeof page);
-
-    sprintf(bfStringIP, "%d.%d.%d.%d", frmConfiguracaoDeRede.ntpAdrress[0], frmConfiguracaoDeRede.ntpAdrress[1], frmConfiguracaoDeRede.ntpAdrress[2], frmConfiguracaoDeRede.ntpAdrress[3]);
-
-    ParameterFillAndSend(bfStringIP);
-
-    page = PSTR("'>\r\n"
-               "<span class='help-block'>Porta: 123.</span>\r\n"
-                "</div>\r\n"
-
               "<button type='submit' class='btn btn-primary'>Salvar</button>\r\n"
               "</form>\r\n"
               "</div>\r\n"

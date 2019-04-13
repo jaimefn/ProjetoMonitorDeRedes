@@ -65,6 +65,12 @@ bool GerenciadorDeComandosHTTP::UrlGetPagina8Htm(char *url)
     return false;
   return true;
 }
+bool GerenciadorDeComandosHTTP::UrlGetPagina9Htm(char *url)
+{
+  if (strncmp("pagina9.htm", url, 11) != 0)
+    return false;
+  return true;
+}
 
 bool GerenciadorDeComandosHTTP::UrlGetStatus(char *url)
 {
@@ -229,6 +235,13 @@ bool GerenciadorDeComandosHTTP::UrlValidarLogin(char *url)
 bool GerenciadorDeComandosHTTP::UrlSalvarLogin(char *url)
 {
   if (strncmp("Login", url, 5) != 0)
+    return false;
+  return true;
+}
+
+bool GerenciadorDeComandosHTTP::UrlSalvarRelogio(char *url)
+{
+  if (strncmp("ConfigDataHora", url, 14) != 0)
     return false;
   return true;
 }
@@ -414,11 +427,6 @@ formConfiguracaoDaRede GerenciadorDeComandosHTTP::FiltrarParametrosFrmConfigurac
         FuncoesUteis::CopiarIpParaByteArray(separator, ':', frmConfiguracaoDeRede.macAdrress, 6, 16);               
       }
       
-      if (strncmp("NTP", command, 3) == 0)
-      {
-        FuncoesUteis::CopiarIpParaByteArray(separator, '.', frmConfiguracaoDeRede.ntpAdrress, 4, 10);               
-      }
-      
     }
     // Find the next command in input string
     command = strtok(0, "&");
@@ -543,6 +551,56 @@ formLogin GerenciadorDeComandosHTTP::FiltrarParametrosFrmLogin(char *url)
   return frmLogin;
 }
 
+
+
+formRelogio GerenciadorDeComandosHTTP::FiltrarParametrosFrmDateTime(char *url)
+{
+
+  char *command = SepararTodosOsParametros(url);
+
+  formRelogio frmRelogio;
+
+  while (command != 0)
+  {
+
+    // Split the command in two values
+    char *separator = strchr(command, '=');
+    if (separator != 0)
+    {
+      // Actually split the string in 2: replace ':' with 0
+      *separator = 0;
+      ++separator;
+
+      ether.urlDecode(separator);
+
+      if (strncmp("DataHora", command, 4) == 0)
+      {
+        Serial.print("DateTime: ");
+        Serial.println(separator);
+        
+        
+        //frmRelogio.dateTime.dia = FuncoesUteis::ConvertCharArrayToByte(separator);
+
+
+        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.dia, strlen(separator),20);
+        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.mes, strlen(separator),20);
+        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.ano, strlen(separator),20);
+        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.hora, strlen(separator),20);
+        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.min, strlen(separator),20);
+        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.seg, strlen(separator),20);
+      }
+      if (strncmp("NTP", command, 3) == 0)
+      {
+        FuncoesUteis::CopiarIpParaByteArray(separator, '.', frmRelogio.ntp.ntpAdrress, 4, 10);               
+      }
+    }
+    // Find the next command in input string
+    command = strtok(0, "&");
+  }
+
+  return frmRelogio;
+}
+
 char *GerenciadorDeComandosHTTP::UrlRetornarId(char *url)
 {
   char *getInit = strstr(url, "=");
@@ -570,8 +628,8 @@ char *GerenciadorDeComandosHTTP::PularCampoSession(char *url)
 void GerenciadorDeComandosHTTP::SendNtpRequest()
 {
 
-  formConfiguracaoDaRede frmConfiguracaoDeRede = MemoriaEEPROM.CarregarFormConfiguracaoDeRede();
-          ether.ntpRequest(frmConfiguracaoDeRede.ntpAdrress, ntpMyPort);
+  formNtp frmNtp = MemoriaEEPROM.CarregarFormNtp();
+          ether.ntpRequest(frmNtp.ntpAdrress, ntpMyPort);
   
 }
 
@@ -760,6 +818,12 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
       return;
     }
 
+     if (UrlGetPagina9Htm(url))
+    {
+      paginaHtml.CarregarPagina9();
+      return;
+    }
+
     if (UrlSolicitaHomePage(url))
     {
      // Serial.println("- home page -");
@@ -817,6 +881,15 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
       formLogin frmLogin = FiltrarParametrosFrmLogin(url);
       MemoriaEEPROM.SalvarformLogin(frmLogin);
+
+      json.EnviarStatus('0', '1');
+    }
+
+    if (UrlSalvarRelogio(url))
+    {
+
+      formRelogio frmRelogio = FiltrarParametrosFrmDateTime(url);
+      MemoriaEEPROM.SalvarformNtp(frmRelogio.ntp);
 
       json.EnviarStatus('0', '1');
     }

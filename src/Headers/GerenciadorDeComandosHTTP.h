@@ -36,6 +36,7 @@ class GerenciadorDeComandosHTTP
     bool UrlGetPagina6Htm(char *url);
     bool UrlGetPagina7Htm(char *url);
     bool UrlGetPagina8Htm(char *url);
+    bool UrlGetPagina9Htm(char *url);
     bool UrlGetStatus(char *url);
     bool UrlGetMenuCss(char *url);
     bool UrlGetCodeJs(char *url);
@@ -53,6 +54,7 @@ class GerenciadorDeComandosHTTP
     bool UrlSalvarConfiguracoesDoPing(char *url);
     bool UrlSalvarControleDasSaidas(char *url);
     bool UrlSalvarLogin(char *url);
+    bool UrlSalvarRelogio(char *url);
     bool Urlrgckey(char *url);
     bool Urlrgline(char *url);
     bool Urlrgccore(char *url);
@@ -67,6 +69,7 @@ class GerenciadorDeComandosHTTP
     formConfiguracaoDoPing FiltrarParametrosFrmConfiguracoesDoPing(char *url);
     formConfiguracaoDaRede FiltrarParametrosFrmConfiguracoesDeRede(char *url);
     formLogin FiltrarParametrosFrmLogin(char *url);
+    formRelogio FiltrarParametrosFrmDateTime(char *url);
     BtnControl FiltrarParametrosFrmControleDasSaidas(char *url);
 
 };

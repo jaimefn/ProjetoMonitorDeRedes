@@ -14,6 +14,7 @@ void BancoDeDados::RestaurarDadosDeFabrica(int cod_rst, bool rst)
         formStatus frmStatus;
         formLogin frmLogin;
         formConfiguracaoDoPing frmConfiguracaoDoPing;
+        formNtp frmNtp;
 
     if (rst == true && cod_rst == 0xA5)
     {
@@ -54,7 +55,9 @@ void BancoDeDados::RestaurarDadosDeFabrica(int cod_rst, bool rst)
         FuncoesUteis::copiarIp(dnsDefault, frmConfiguracaoDeRede.dnsAdrress, 4);
         FuncoesUteis::copiarIp(gwipDefault, frmConfiguracaoDeRede.gwIpAdrress, 4);
         FuncoesUteis::copiarIp(maskDefault, frmConfiguracaoDeRede.subMascara, 4);
-        FuncoesUteis::copiarIp(ntpDefault, frmConfiguracaoDeRede.ntpAdrress, 4);
+        
+        //configurar NTP
+        FuncoesUteis::copiarIp(ntpDefault, frmNtp.ntpAdrress, 4);
 
         //configuracao do ping
         frmConfiguracaoDoPing.numeroDeBytesDoPing = 1500;
@@ -92,6 +95,7 @@ void BancoDeDados::RestaurarDadosDeFabrica(int cod_rst, bool rst)
         SalvarformConfiguracao(frmConfiguracao);
         SalvarformControleSaidas(frmControleDeSaidas);
         SalvarformLogin(frmLogin);
+        SalvarformNtp(frmNtp);
         SalvarformStatus(frmStatus);
         SalvarformWatchdog(frmWatchDog);
         SalvarformConfiguracaoDaRede(frmConfiguracaoDeRede);
@@ -162,6 +166,13 @@ formLogin BancoDeDados::CarregarFormLogin()
     return frmLogin;
 }
 
+formNtp BancoDeDados::CarregarFormNtp()
+{
+    formNtp frmNtp;
+    EEPROM.get(_NTP_POS, frmNtp);
+    return frmNtp;
+}
+
 void BancoDeDados::ModificarFlagDeAlteracaoNoBancoDeDados(bool status)
 {
     _bancoDeDadosFoiAlterado = status;
@@ -208,6 +219,11 @@ void BancoDeDados::SalvarformStatus(formStatus frmStatus)
 void BancoDeDados::SalvarformLogin(formLogin frmLogin)
 {
     EEPROM.put(_LOGIN_POS, frmLogin);
+}
+
+void BancoDeDados::SalvarformNtp(formNtp frmNtp)
+{
+    EEPROM.put(_NTP_POS, frmNtp);
 }
 
 bool BancoDeDados::VerificarStatusDoBancoDeDados()

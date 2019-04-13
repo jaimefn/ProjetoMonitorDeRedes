@@ -296,9 +296,9 @@ void MaquinaDeEstado::AtualizarColecaoDeDados(uint8_t sinalizarRedeResetada)
     DataLog datalog;
     Relogio relogio;
 
-    datalog.hora = relogio.getHour();
-    datalog.min = relogio.getMin();
-    datalog.dia = relogio.getDay();
+    datalog.dateTime.hora = relogio.getHour();
+    datalog.dateTime.min = relogio.getMin();
+    datalog.dateTime.dia = relogio.getDay();
     datalog.ping = MDE.redeMonitorada[MDE.idDaRedeEmAnalise].numeroDeTimeOut;
     datalog.lat = latencia.CalcularMedia(MDE.idDaRedeEmAnalise);
     datalog.reset = (bool)sinalizarRedeResetada;

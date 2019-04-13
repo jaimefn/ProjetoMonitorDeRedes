@@ -24,7 +24,6 @@ typedef struct formConfiguracaoDaRede
   uint8_t gwIpAdrress[4];
   uint8_t dnsAdrress[4];
   uint8_t subMascara[4];
-  uint8_t ntpAdrress[4];
 };
 typedef struct formConfiguracaoDoPing
 {
@@ -61,6 +60,11 @@ typedef struct formLogin
   char Usuario[20];
   char Senha[20];
 };
+
+typedef struct formNtp{
+    uint8_t ntpAdrress[4];
+};
+
 typedef struct BtnControl
 {
   //btnControl
@@ -68,7 +72,7 @@ typedef struct BtnControl
   uint16_t tempo;
 };
 
-typedef struct Time
+typedef struct DateTime
 {
   //Relogio
   int seg;
@@ -83,9 +87,7 @@ typedef struct Time
 typedef struct DataLog
 {
   //dados do log
-  uint8_t dia;
-  uint8_t hora;
-  uint8_t min;
+  DateTime dateTime;
   uint8_t ping;
   uint16_t lat;
   uint8_t reset;
@@ -100,5 +102,12 @@ typedef struct BufferStatusPing
   
 };
 
+
+typedef struct formRelogio
+{
+  //
+  DateTime dateTime;
+  formNtp ntp;
+};
 
 #endif

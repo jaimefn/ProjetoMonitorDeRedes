@@ -10,8 +10,8 @@ class Relogio
 {
   public:
     void begin();
-    void SetTime(Time time);
-    Time GetTime();
+    void SetTime(DateTime time);
+    DateTime GetTime();
     String GetTimeString();
     void SincNtpTime(unsigned long ntpTime);
     void UpdateTime();
@@ -26,7 +26,7 @@ class Relogio
     
 
   private:
-    static Time bfTime;
+    static DateTime bfTime;
     static bool NtpRequestOk;
     static unsigned long lastNtpTime;
     static byte monthDays[];
