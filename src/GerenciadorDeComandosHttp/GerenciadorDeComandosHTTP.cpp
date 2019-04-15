@@ -560,6 +560,8 @@ formRelogio GerenciadorDeComandosHTTP::FiltrarParametrosFrmDateTime(char *url)
 
   formRelogio frmRelogio;
 
+  frmRelogio.ntp.status = 0;
+
   while (command != 0)
   {
 
@@ -575,9 +577,7 @@ formRelogio GerenciadorDeComandosHTTP::FiltrarParametrosFrmDateTime(char *url)
 
       if (strncmp("DataHora", command, 8) == 0)
       {
-        Serial.print("DateTime: ");
-        Serial.println(separator);
-
+       
         char *date = separator;
         char *time = strchr(separator, 'T');
         if (time != 0)
@@ -613,6 +613,11 @@ formRelogio GerenciadorDeComandosHTTP::FiltrarParametrosFrmDateTime(char *url)
       if (strncmp("NTP", command, 3) == 0)
       {
         FuncoesUteis::CopiarIpParaByteArray(separator, '.', frmRelogio.ntp.ntpAdrress, 4, 10);
+      }
+
+      if (strncmp("chkNtp", command, 6) == 0)
+      {
+        frmRelogio.ntp.status = 1;
       }
     }
     // Find the next command in input string
@@ -650,7 +655,10 @@ void GerenciadorDeComandosHTTP::SendNtpRequest()
 {
 
   formNtp frmNtp = MemoriaEEPROM.CarregarFormNtp();
-  ether.ntpRequest(frmNtp.ntpAdrress, ntpMyPort);
+  
+  if(frmNtp.status != 0){  
+    ether.ntpRequest(frmNtp.ntpAdrress, ntpMyPort);
+  }
 }
 
 void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
@@ -912,10 +920,16 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
       RelogioRTC r(20,21);  
 
-      r.setDate(frmRelogio.dateTime.date.day,frmRelogio.dateTime.date.mouth,frmRelogio.dateTime.date.year);
-      r.setTime(frmRelogio.dateTime.time.hour,frmRelogio.dateTime.time.min,frmRelogio.dateTime.time.sec);
-
       json.EnviarStatus('0', '1');
+
+      if(frmRelogio.ntp.status != 0){
+        SendNtpRequest();
+      }
+        else{
+          r.setDate(frmRelogio.dateTime.date.day,frmRelogio.dateTime.date.mouth,frmRelogio.dateTime.date.year);
+          r.setTime(frmRelogio.dateTime.time.hour,frmRelogio.dateTime.time.min,frmRelogio.dateTime.time.sec);
+        }
+     
     }
 
     if (UrlGetReset(url))
@@ -936,7 +950,13 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (ether.ntpProcessAnswer(&timeFromNTP, ntpMyPort))
     {
-      relogio.SincNtpTime(timeFromNTP - seventy_years - timeZoneOffset);
+      RelogioRTC r(20,21);
+      
+      Time t = r.localTime(timeFromNTP - seventy_years - timeZoneOffset);
+
+      r.setDate(t.date,t.mon,t.year);
+      r.setTime(t.hour,t.min,t.sec);
+      
     }
   }
 }

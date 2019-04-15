@@ -12,7 +12,7 @@
 #include <Headers\ResetarCpu.h>
 #include <Headers\CtrlResets.h>
 #include <Headers\Latencia.h>
-#include <Headers\Relogio.h>
+#include <Headers\RelogioRTC.h>
 #include <Headers\BtnReset.h>
 //VetorDeBoot
 extern void InicializarSistema();

@@ -16,9 +16,6 @@ void InicializarSistema()
   digitalWrite(PIN_SAIDA_4, LOW);
 
   pinMode(btn_rst_memoria, INPUT_PULLUP);
-  pinMode(btn_gnd, OUTPUT);
-  digitalWrite(btn_gnd, LOW);
-
 
 
   Serial.begin(115200);

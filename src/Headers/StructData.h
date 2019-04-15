@@ -63,6 +63,7 @@ typedef struct formLogin
 
 typedef struct formNtp{
     uint8_t ntpAdrress[4];
+    uint8_t status;
 };
 
 typedef struct BtnControl

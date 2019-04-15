@@ -4,76 +4,19 @@
 
 int count_clicks = 0;
 long int debounce_time = 0;
+RelogioRTC relogioRTC(20,21);
 
-
-void teste()
-{
-  unsigned long tempo = 0;
-  DataLog dt;
-  
-  for (short j = 0; j < 4; j++)
-  {
-    for (short i =0; i < 19; i++)
-    {
-
-      dt.ping = random(0,1);
-      dt.reset =  0;
-      dt.lat = random(8,20);
-
-  if(j == 0){
-
-  
-     if(i == 13){
-          dt.ping = 30;
-          dt.lat = random(100,255);
-          dt.reset = 1;
-
-     }
-   
-  
-
-     if(i == 10){
-      dt.ping = random(15,30);
-          dt.lat = random(10,100);
-       if(dt.ping == 30) dt.reset = 1;
-
-     }
-  } 
-  
-  if(j == 1){
-     if(i == 5){
-      dt.ping = random(15,30);
-          dt.lat = random(10,100);
-       if(dt.ping == 30) dt.reset = 1;
-
-     }
-  } 
-  
-      dt.dateTime.time.hour = j+1;
-      dt.dateTime.time.min = i*3;
-      dt.dateTime.date.day = j+1;
-      colecao.add(j, dt);
-    }
-  }
-}
 
 void setup()
 {
 
   InicializarSistema();
-  //ConfigurarPing();
- // MemoriaEEPROM.RestaurarDadosDeFabrica();
-
-   conexao.InicializarEnc28j60();
-
-
+  conexao.InicializarEnc28j60();
   resetarCpu.InitWdt();
+  relogioRTC.begin();
+  delay(100);
+  HttpManager.SendNtpRequest();
 
-  relogio.begin();
- // teste();
-
-  pinMode(6,OUTPUT);
-  pinMode(7,OUTPUT);
   }
 
 
@@ -81,9 +24,8 @@ void loop()
 {
 
   resetarCpu.ZerarWdt();
-  relogio.UpdateTime();
+  relogioRTC.UpdateTime();
   HttpManager.GerenciarComandosHTTP();
-
   maquinaDeEstado.AtualizarMaquinaDeEstado();
   
   if(digitalRead(btn_rst_memoria) == 0){

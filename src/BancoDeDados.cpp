@@ -26,11 +26,11 @@ void BancoDeDados::RestaurarDadosDeFabrica(int cod_rst, bool rst)
         uint8_t ipNulo[] = {0, 0, 0, 0};
                                             //ultimo mac foi o 21
         uint8_t macDefault[] = {0x54, 0x55, 0x58, 0x31, 0x22, 0x21};
-        uint8_t ipDefault[] = {192, 168, 33, 254};
-        uint8_t gwipDefault[] = {192, 168, 33, 1};
+        uint8_t ipDefault[] = {192, 168, 2, 110};
+        uint8_t gwipDefault[] = {192, 168, 2, 1};
         uint8_t dnsDefault[] = {8, 8, 8, 8};
         uint8_t maskDefault[] = {255, 255, 255, 0};
-        uint8_t ntpDefault[] = {192, 168, 33, 1};
+        uint8_t ntpDefault[] = {192, 168, 2, 1};
 
         //Restaurar dados de fabrica
         //Login
@@ -58,6 +58,7 @@ void BancoDeDados::RestaurarDadosDeFabrica(int cod_rst, bool rst)
         
         //configurar NTP
         FuncoesUteis::copiarIp(ntpDefault, frmNtp.ntpAdrress, 4);
+        frmNtp.status = 1;
 
         //configuracao do ping
         frmConfiguracaoDoPing.numeroDeBytesDoPing = 1500;

@@ -42,7 +42,7 @@ void pagina_ConfigDataHora(){
   ParameterFillAndSend(bfStringIP);
   page = PSTR("'>\r\n"
       "        </div>\r\n"
-      "        <div class='form-group'>\r\n"
+      "<div class='form-group'>"
       "        <label for='NTP'>Servidor NTP:</label>\r\n"
       "        <input name='NTP' type='text' pattern='\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}' class='form-control' id='NTP' value='");
     ether.fillAndSend(page, sizeof page);
@@ -54,6 +54,19 @@ void pagina_ConfigDataHora(){
     page = PSTR("'>\r\n"
                "<span class='help-block'>Porta: 123.</span>\r\n"
       "        </div>\r\n"
+        "       <div class='form-group'>\r\n"
+              "<label class='form-check-label'>\r\n"
+              "<input name='chkNtp' class='form-check-input' type='checkbox'");
+  ether.fillAndSend(page, sizeof page);
+
+  page = PSTR("checked");
+
+  if (frmNtp.status != 0)
+    ether.fillAndSend(page);
+
+  page = PSTR("> Ativar NTP - Atualizar data automaticamente"
+      "         </label>\r\n"
+      "        </div><br>\r\n"
       "        <button type='submit' class='btn btn-primary'>Salvar</button>\r\n"
       "        </form>\r\n"
       "        </div>\r\n"
