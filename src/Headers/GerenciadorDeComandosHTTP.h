@@ -38,6 +38,7 @@ class GerenciadorDeComandosHTTP
     bool UrlGetPagina8Htm(char *url);
     bool UrlGetPagina9Htm(char *url);
     bool UrlGetStatus(char *url);
+    bool UrlGetDateTime(char *url);
     bool UrlGetMenuCss(char *url);
     bool UrlGetCodeJs(char *url);
     bool UrlGetJQueryJs(char *url);

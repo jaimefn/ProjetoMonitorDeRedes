@@ -6,6 +6,8 @@
 #include <Headers\CtrlResets.h>
 #include <Headers\CtrlSaidas.h>
 #include <Headers\colecao.h>
+#include <Headers\RelogioRTC.h>
+
 
 class JSon
 {
@@ -14,6 +16,7 @@ public:
   void EnviarStatus(char btn, char valor);
   void EnviarStatus();
   void EnviarDadosDoLog();
+  void EnviarDateTime();
 
 private:
   void Cabecalho();

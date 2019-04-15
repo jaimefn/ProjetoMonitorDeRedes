@@ -64,6 +64,30 @@ void JSon::EnviarStatus(char btn, char valor)
     ether.finalizeConn();
 }
 
+void JSon::EnviarDateTime()
+{
+
+    Cabecalho();
+    
+    char bfStringIP[30];
+    char *page = PSTR("{\"data\": \"");
+
+    RelogioRTC r(20,21);
+
+    Time t = r.getTime();
+
+    ether.fillAndSend(page, sizeof(page));
+   
+    sprintf(bfStringIP, "%02d:%02d:%02d - %02d/%02d/%04d",t.hour,t.min,t.sec,t.date,t.mon,t.year);
+     
+    ParameterFillAndSend(bfStringIP);
+
+    page = PSTR("\"}\r\n");
+
+    ether.fillAndSend(page, sizeof(page));
+    ether.finalizeConn();
+}
+
 void JSon::EnviarStatus()
 {
     // codigo para converter float em xx.xx

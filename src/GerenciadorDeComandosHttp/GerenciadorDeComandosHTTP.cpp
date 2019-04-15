@@ -78,7 +78,12 @@ bool GerenciadorDeComandosHTTP::UrlGetStatus(char *url)
     return false;
   return true;
 }
-
+bool GerenciadorDeComandosHTTP::UrlGetDateTime(char *url)
+{
+  if (strncmp("GetDateTime", url, 11) != 0)
+    return false;
+  return true;
+}
 bool GerenciadorDeComandosHTTP::UrlGetMenuCss(char *url)
 {
   if (strncmp("menu.css", url, 8) != 0)
@@ -831,7 +836,13 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
       paginaHtml.CarregarPagina9();
       return;
     }
-
+    
+    if (UrlGetDateTime(url))
+    {
+      json.EnviarDateTime();
+      return;
+    }
+    
     if (UrlSolicitaHomePage(url))
     {
       // Serial.println("- home page -");

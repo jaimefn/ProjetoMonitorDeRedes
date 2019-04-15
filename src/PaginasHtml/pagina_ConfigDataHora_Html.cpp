@@ -58,7 +58,19 @@ void pagina_ConfigDataHora(){
       "        </form>\r\n"
       "        </div>\r\n"
       "        </div>\r\n"
-    "</body>\r\n"
+      "           <script>\r\n"
+      "               $(document).ready(function() {\r\n"
+      "    	              var o = null;\r\n"
+      "                   o = setInterval(function() {\r\n"
+      "                     var e = $('#ipBuffer').attr('data-ipBuffer'),\r\n"
+      "                     t = $('#ipBuffer').attr('data-idBuffer');\r\n"
+      "                     $.get('http://' + e + '/?Session=' + t + '&GetDateTime=true', function(t, a) {\r\n"
+      "		                    $('#spanDateTime').html(t.data);\r\n"
+      "                     }, 'json')\r\n" 
+      "                   }, 1e3);\r\n"
+      "                });\r\n"
+      "           </script>\r\n"
+      "          </body>\r\n"
     );
 
     ether.fillAndSend(page,sizeof page);
