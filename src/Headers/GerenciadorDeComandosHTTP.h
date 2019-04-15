@@ -11,7 +11,7 @@
 #include <Headers\ResetarCpu.h>
 #include <Headers\CtrlSaidas.h>
 #include <Headers\json.h>
-#include <Headers\Relogio.h>
+#include <Headers\RelogioRTC.h>
 #include <Headers\LogDeFalha.h>
 
 class GerenciadorDeComandosHTTP

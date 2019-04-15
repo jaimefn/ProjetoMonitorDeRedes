@@ -49,9 +49,9 @@ void teste()
      }
   } 
   
-      dt.dateTime.hora = j+1;
-      dt.dateTime.min = i*3;
-      dt.dateTime.dia = j+1;
+      dt.dateTime.time.hour = j+1;
+      dt.dateTime.time.min = i*3;
+      dt.dateTime.date.day = j+1;
       colecao.add(j, dt);
     }
   }

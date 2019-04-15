@@ -58,6 +58,7 @@ void FuncoesUteis::CopiarIpParaByteArray(const char *str, char sep, char *bytes,
   }
 }
 
+
 void FuncoesUteis::ImprimirByteAsCharArray(uint8_t *ptr)
 {
   while (*ptr != 0)

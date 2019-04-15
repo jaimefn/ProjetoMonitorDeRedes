@@ -86,35 +86,33 @@ bool GerenciadorDeComandosHTTP::UrlGetMenuCss(char *url)
   return true;
 }
 
-
 bool GerenciadorDeComandosHTTP::Urlrgcajax(char *url)
-{  
+{
   if (strncmp("rgcajax.js", url, 10) != 0)
     return false;
   return true;
 }
 
 bool GerenciadorDeComandosHTTP::Urlrgccore(char *url)
-{  
+{
   if (strncmp("rgccore.js", url, 10) != 0)
     return false;
   return true;
 }
 
 bool GerenciadorDeComandosHTTP::Urlrgline(char *url)
-{  
+{
   if (strncmp("rgline.js", url, 9) != 0)
     return false;
   return true;
 }
 
 bool GerenciadorDeComandosHTTP::Urlrgckey(char *url)
-{  
+{
   if (strncmp("rgckey.js", url, 9) != 0)
     return false;
   return true;
 }
-
 
 bool GerenciadorDeComandosHTTP::UrlGetFavIcon(char *url)
 {
@@ -343,23 +341,23 @@ formConfiguracao GerenciadorDeComandosHTTP::FiltrarParametrosFrmConfiguracoes(ch
 
       if (strncmp("NomeInterface", command, 13) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeInterface, strlen(separator),40);
+        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeInterface, strlen(separator), 40);
       }
       if (strncmp("NomeRede1", command, 9) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[0], strlen(separator),40);
+        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[0], strlen(separator), 40);
       }
       if (strncmp("NomeRede2", command, 9) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[1], strlen(separator),40);
+        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[1], strlen(separator), 40);
       }
       if (strncmp("NomeRede3", command, 9) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[2], strlen(separator),40);
+        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[2], strlen(separator), 40);
       }
       if (strncmp("NomeRede4", command, 9) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[3], strlen(separator),40);
+        FuncoesUteis::copiarArray(separator, frmConfiguracao.nomeRede[3], strlen(separator), 40);
       }
       if (strncmp("IpRede1", command, 7) == 0)
       {
@@ -424,9 +422,8 @@ formConfiguracaoDaRede GerenciadorDeComandosHTTP::FiltrarParametrosFrmConfigurac
       }
       if (strncmp("MAC", command, 3) == 0)
       {
-        FuncoesUteis::CopiarIpParaByteArray(separator, ':', frmConfiguracaoDeRede.macAdrress, 6, 16);               
+        FuncoesUteis::CopiarIpParaByteArray(separator, ':', frmConfiguracaoDeRede.macAdrress, 6, 16);
       }
-      
     }
     // Find the next command in input string
     command = strtok(0, "&");
@@ -537,11 +534,11 @@ formLogin GerenciadorDeComandosHTTP::FiltrarParametrosFrmLogin(char *url)
 
       if (strncmp("User", command, 4) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmLogin.Usuario, strlen(separator),20);
+        FuncoesUteis::copiarArray(separator, frmLogin.Usuario, strlen(separator), 20);
       }
       if (strncmp("pwd", command, 3) == 0)
       {
-        FuncoesUteis::copiarArray(separator, frmLogin.Senha, strlen(separator),20);
+        FuncoesUteis::copiarArray(separator, frmLogin.Senha, strlen(separator), 20);
       }
     }
     // Find the next command in input string
@@ -550,8 +547,6 @@ formLogin GerenciadorDeComandosHTTP::FiltrarParametrosFrmLogin(char *url)
 
   return frmLogin;
 }
-
-
 
 formRelogio GerenciadorDeComandosHTTP::FiltrarParametrosFrmDateTime(char *url)
 {
@@ -573,25 +568,46 @@ formRelogio GerenciadorDeComandosHTTP::FiltrarParametrosFrmDateTime(char *url)
 
       ether.urlDecode(separator);
 
-      if (strncmp("DataHora", command, 4) == 0)
+      if (strncmp("DataHora", command, 8) == 0)
       {
         Serial.print("DateTime: ");
         Serial.println(separator);
+
+        char *date = separator;
+        char *time = strchr(separator, 'T');
+        if (time != 0)
+        {
+          // Actually split the string in 2: replace ':' with 0
+          *time = 0;
+          ++time;
+        }
+
+        char *year = date;
+        char *month = strchr(date, '-');
+        *month = 0;
+        ++month;
+        char *day = strchr(month,'-');
+        *day = 0;
+        ++day;
+
+        char *hour = time;
+        char *min = strchr(hour, ':');
+        *min = 0;
+        ++min;
         
         
-        //frmRelogio.dateTime.dia = FuncoesUteis::ConvertCharArrayToByte(separator);
-
-
-        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.dia, strlen(separator),20);
-        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.mes, strlen(separator),20);
-        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.ano, strlen(separator),20);
-        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.hora, strlen(separator),20);
-        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.min, strlen(separator),20);
-        //FuncoesUteis::copiarArray(separator, frmRelogio.dateTime.seg, strlen(separator),20);
+       frmRelogio.dateTime.date.day = FuncoesUteis::ConvertCharArrayToByte(day);
+       frmRelogio.dateTime.date.mouth = FuncoesUteis::ConvertCharArrayToByte(month); 
+       frmRelogio.dateTime.date.year = FuncoesUteis::ConvertCharArrayToByte(year);
+       frmRelogio.dateTime.time.hour = FuncoesUteis::ConvertCharArrayToByte(hour);
+       frmRelogio.dateTime.time.min = FuncoesUteis::ConvertCharArrayToByte(min);
+       frmRelogio.dateTime.time.sec = 0;//FuncoesUteis::ConvertCharArrayToByte(hour);
+                
       }
+
       if (strncmp("NTP", command, 3) == 0)
       {
-        FuncoesUteis::CopiarIpParaByteArray(separator, '.', frmRelogio.ntp.ntpAdrress, 4, 10);               
+        FuncoesUteis::CopiarIpParaByteArray(separator, '.', frmRelogio.ntp.ntpAdrress, 4, 10);
       }
     }
     // Find the next command in input string
@@ -629,8 +645,7 @@ void GerenciadorDeComandosHTTP::SendNtpRequest()
 {
 
   formNtp frmNtp = MemoriaEEPROM.CarregarFormNtp();
-          ether.ntpRequest(frmNtp.ntpAdrress, ntpMyPort);
-  
+  ether.ntpRequest(frmNtp.ntpAdrress, ntpMyPort);
 }
 
 void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
@@ -641,12 +656,8 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
   word len = ether.packetReceive();
   word dadosRecebidos = ether.packetLoop(len);
 
-  
-
   if (dadosRecebidos)
   {
-    
- 
 
     delay(1); // necessary for my system
 
@@ -654,7 +665,6 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     char *url = (char *)Ethernet::buffer + dadosRecebidos;
 
-    
     if (RequisicaoHttpNaoSuportada(url))
     {
       //  Serial.println("pagina 304 found location");
@@ -670,7 +680,6 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
     //Serial.println(url);
     //Serial.println();
 
-
     if (UrlGetMenuCss(url))
     {
       paginaHtml.EnviarCssFile("menu.css");
@@ -685,7 +694,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (UrlGetCodeJs(url))
     {
-      paginaHtml.EnviarJsFile("code.js");     
+      paginaHtml.EnviarJsFile("code.js");
       return;
     }
 
@@ -714,7 +723,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
       paginaHtml.EnviarJsFile("rgsbar.js");
       return;
     }
-    
+
     if (UrlGetJQueryJs(url))
     {
       paginaHtml.EnviarJsFile("jquery.js");
@@ -729,7 +738,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (UrlSolicitaPaginaDeLogin(url))
     {
-     // Serial.println("- pagina login -");
+      // Serial.println("- pagina login -");
       paginaHtml.CarregarPaginaDeLogin();
       return;
     }
@@ -743,7 +752,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (UrlValidarLogin(url))
     {
-     // Serial.println("- validar login -");
+      // Serial.println("- validar login -");
 
       formLogin frmLogin = FiltrarParametrosFrmLogin(url);
       if (Session.LogIn(frmLogin))
@@ -755,7 +764,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (!UrlValidarId(ptrId) || !Session.IsLoged())
     {
-     // Serial.println("ptrId invalido");
+      // Serial.println("ptrId invalido");
       json.EnviarStatusEId('0');
       return;
     }
@@ -769,10 +778,9 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
     if (UrlBtnClearLog(url))
     {
       logDeFalhas.LimparLog();
-      json.EnviarStatus('0','1');
+      json.EnviarStatus('0', '1');
       return;
     }
-  
 
     if (UrlGetPagina1Htm(url))
     {
@@ -811,14 +819,14 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
       paginaHtml.CarregarPagina7();
       return;
     }
-    
+
     if (UrlGetPagina8Htm(url))
     {
       paginaHtml.CarregarPagina8();
       return;
     }
 
-     if (UrlGetPagina9Htm(url))
+    if (UrlGetPagina9Htm(url))
     {
       paginaHtml.CarregarPagina9();
       return;
@@ -826,7 +834,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (UrlSolicitaHomePage(url))
     {
-     // Serial.println("- home page -");
+      // Serial.println("- home page -");
 
       paginaHtml.CarregarHomePage();
     }
@@ -868,7 +876,7 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
 
     if (UrlSalvarControleDasSaidas(url))
     {
-     // Serial.print("controle das saidas");
+      // Serial.print("controle das saidas");
       BtnControl btnControl;
 
       btnControl = FiltrarParametrosFrmControleDasSaidas(url);
@@ -891,12 +899,17 @@ void GerenciadorDeComandosHTTP::GerenciarComandosHTTP()
       formRelogio frmRelogio = FiltrarParametrosFrmDateTime(url);
       MemoriaEEPROM.SalvarformNtp(frmRelogio.ntp);
 
+      RelogioRTC r(20,21);  
+
+      r.setDate(frmRelogio.dateTime.date.day,frmRelogio.dateTime.date.mouth,frmRelogio.dateTime.date.year);
+      r.setTime(frmRelogio.dateTime.time.hour,frmRelogio.dateTime.time.min,frmRelogio.dateTime.time.sec);
+
       json.EnviarStatus('0', '1');
     }
 
     if (UrlGetReset(url))
     {
-       //     Serial.print("Reset");
+      //     Serial.print("Reset");
       CtrlResets.Zerar();
     }
 

@@ -2,6 +2,7 @@
 
 Relogio relogio;
 
+
 byte Relogio::monthDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 DateTime Relogio::bfTime;
@@ -10,25 +11,25 @@ bool Relogio::NtpRequestOk = false;
 
 void Relogio::begin()
 {
-    NtpRequestOk = false;
+     NtpRequestOk = false;
     lastNptTime = 10886400;
     SendNtpRequest();
 }
 
-void Relogio::SetTime(DateTime time)
+void Relogio::SetTime(DateTime dateTime)
 {
 }
 
 DateTime Relogio::GetTime()
 {
-    localTime(lastNptTime);
-    return bfTime;
+   localTime(lastNptTime);
+   return bfTime;
 }
 
 String Relogio::GetTimeString()
 {
     localTime(lastNptTime);
-    return diaSemana(bfTime.diaSemana) + ", " + zero(bfTime.dia) + "/" + zero(bfTime.mes + 1) + "/" + (bfTime.ano + 1900) + " " + zero(bfTime.hora) + ":" + zero(bfTime.min) + ":" + zero(bfTime.seg);
+    return diaSemana(bfTime.dayOfWeek) + ", " + zero(bfTime.date.day) + "/" + zero(bfTime.date.mouth + 1) + "/" + (bfTime.date.year + 1900) + " " + zero(bfTime.time.hour) + ":" + zero(bfTime.time.min) + ":" + zero(bfTime.time.sec);
 }
 
 void Relogio::SincNtpTime(unsigned long ntpTime)
@@ -55,6 +56,7 @@ void Relogio::UpdateTime()
         tempo = millis();
         lastNptTime++;
         TempoParaSincronizar++;
+       
     }
 }
 
@@ -69,13 +71,13 @@ void Relogio::localTime(unsigned long ntpTime)
     byte month, monthLength;
     unsigned long days;
 
-    bfTime.seg = epoch % 60;
+    bfTime.time.sec = epoch % 60;
     epoch /= 60; // now it is minutes
-    bfTime.min = epoch % 60;
+    bfTime.time.min = epoch % 60;
     epoch /= 60; // now it is hours
-    bfTime.hora = epoch % 24;
+    bfTime.time.hour = epoch % 24;
     epoch /= 24; // now it is days
-    bfTime.diaSemana = (epoch + 4) % 7;
+    bfTime.dayOfWeek = (epoch + 4) % 7;
 
     year = 70;
     days = 0;
@@ -83,7 +85,7 @@ void Relogio::localTime(unsigned long ntpTime)
     {
         year++;
     }
-    bfTime.ano = year; // *pyear is returned as years from 1900
+    bfTime.date.year = year; // *pyear is returned as years from 1900
 
     days -= LEAP_YEAR(year) ? 366 : 365;
     epoch -= days; // now it is days in this year, starting at 0
@@ -101,8 +103,8 @@ void Relogio::localTime(unsigned long ntpTime)
         }
     }
 
-    bfTime.mes = month;              // jan is month 0
-    bfTime.dia = (uint8_t)epoch + 1; // dia do mes
+    bfTime.date.mouth = month;              // jan is month 0
+    bfTime.date.day = (uint8_t)epoch + 1; // dia do mes
 }
 
 String Relogio::zero(int a)
@@ -127,7 +129,7 @@ void Relogio::PrintDataTime()
 {
     localTime(lastNptTime);
 
-    String s = diaSemana(bfTime.diaSemana) + ", " + zero(bfTime.dia) + "/" + zero(bfTime.mes + 1) + "/" + (bfTime.ano + 1900) + " " + zero(bfTime.hora) + ":" + zero(bfTime.min) + ":" + zero(bfTime.seg);
+    String s = diaSemana(bfTime.dayOfWeek) + ", " + zero(bfTime.date.day) + "/" + zero(bfTime.date.mouth + 1) + "/" + (bfTime.date.year + 1900) + " " + zero(bfTime.time.hour) + ":" + zero(bfTime.time.min) + ":" + zero(bfTime.time.sec);
 
     Serial.println(s);
     Serial.println(" ");
@@ -135,25 +137,25 @@ void Relogio::PrintDataTime()
 
     uint8_t Relogio::getYear(){
             localTime(lastNptTime);
-        return bfTime.ano;
+        return bfTime.date.year;
     }
     uint8_t Relogio::getMonth(){
             localTime(lastNptTime);
-        return bfTime.mes;
+        return bfTime.date.mouth;
     }
     uint8_t Relogio::getDay(){
             localTime(lastNptTime);
-        return bfTime.dia;
+        return bfTime.date.day;
     }
     uint8_t Relogio::getHour(){
             localTime(lastNptTime);
-        return bfTime.hora;
+        return bfTime.time.hour;
     }
     uint8_t Relogio::getMin(){
             localTime(lastNptTime);
-        return bfTime.min;
+        return bfTime.time.min;
     }
     uint8_t Relogio::getSec(){
     localTime(lastNptTime);
-        return bfTime.seg;
+        return bfTime.time.sec;
     }

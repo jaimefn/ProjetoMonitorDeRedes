@@ -1,10 +1,16 @@
 #include <EtherCard.h>
 #include <Headers\BancoDeDados.h>
+#include <Headers\RelogioRTC.h>
+
  
 extern void ParameterFillAndSend(char* val);
 
 void pagina_ConfigDataHora(){
  
+  RelogioRTC r(20,21);
+
+  Time t = r.getTime();
+
   char bfStringIP[30];
    formNtp frmNtp = MemoriaEEPROM.CarregarFormNtp();
  
@@ -16,12 +22,25 @@ void pagina_ConfigDataHora(){
       "        </h4>\r\n"
       "        </div>\r\n"
       "        <div class='panel-body'>\r\n"
+      "        <div class='center-block' style='width: 305px' >\r\n"
+      "        <h2><span id='spanDateTime' class='label label-default'>");
+       ether.fillAndSend(page, sizeof page);
+        sprintf(bfStringIP, "%02d:%02d:%02d - %02d/%02d/%04d",t.hour,t.min,t.sec,t.date,t.mon,t.year);
+     
+  ParameterFillAndSend(bfStringIP);
+  page = PSTR("</span></h2>\r\n"
+      "        </div>\r\n"
       "        <div class='dvStatus'></div>\r\n"
       "        <form action='#' method='get'>\r\n"
       "        <input type='hidden' name='ConfigDataHora' value='true'>\r\n"
       "        <div class='form-group'>\r\n"
       "        <label for='DataHora'>Data e Hora:</label>\r\n"
-      "        <input name='DataHora' type='datetime-local' class='form-control' id='DataHora' value='2019-04-12T16:30'>\r\n"
+      "        <input name='DataHora' type='datetime-local' class='form-control' id='DataHora' value='");
+       ether.fillAndSend(page, sizeof page);
+        sprintf(bfStringIP, "%04d-%02d-%02dT%02d:%02d",t.year,t.mon,t.date,t.hour,t.min);
+      
+  ParameterFillAndSend(bfStringIP);
+  page = PSTR("'>\r\n"
       "        </div>\r\n"
       "        <div class='form-group'>\r\n"
       "        <label for='NTP'>Servidor NTP:</label>\r\n"

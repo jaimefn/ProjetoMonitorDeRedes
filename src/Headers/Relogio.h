@@ -3,6 +3,7 @@
 
 #include <Headers\StructData.h>
 #include <Headers\GerenciadorDeComandosHTTP.h>
+#include <DS1307.h>
 
 #define LEAP_YEAR(_year) ((_year % 4) == 0)
 

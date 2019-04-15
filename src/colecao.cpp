@@ -79,36 +79,36 @@ void Colecao::add(uint8_t rede, DataLog datalog)
     case 0:
         bfPing0[0] = datalog.ping;
         bfLat0[0] = datalog.lat;
-        bfHora0[0] = datalog.dateTime.hora;
-        bfMin0[0] = datalog.dateTime.min;
-        bfDia0[0] = datalog.dateTime.dia;
+        bfHora0[0] = datalog.dateTime.time.hour;
+        bfMin0[0] = datalog.dateTime.time.min;
+        bfDia0[0] = datalog.dateTime.date.day;
         bfReset0[0] = datalog.reset;
         break;
 
     case 1:
         bfPing1[0] = datalog.ping;
         bfLat1[0] = datalog.lat;
-        bfHora1[0] = datalog.dateTime.hora;
-        bfMin1[0] = datalog.dateTime.min;
-        bfDia1[0] = datalog.dateTime.dia;
+        bfHora1[0] = datalog.dateTime.time.hour;
+        bfMin1[0] = datalog.dateTime.time.min;
+        bfDia1[0] = datalog.dateTime.date.day;
         bfReset1[0] = datalog.reset;
 
         break;
     case 2:
         bfPing2[0] = datalog.ping;
         bfLat2[0] = datalog.lat;
-        bfHora2[0] = datalog.dateTime.hora;
-        bfMin2[0] = datalog.dateTime.min;
-        bfDia2[0] = datalog.dateTime.dia;
+        bfHora2[0] = datalog.dateTime.time.hour;
+        bfMin2[0] = datalog.dateTime.time.min;
+        bfDia2[0] = datalog.dateTime.date.day;
         bfReset2[0] = datalog.reset;
 
         break;
     case 3:
         bfPing3[0] = datalog.ping;
         bfLat3[0] = datalog.lat;
-        bfHora3[0] = datalog.dateTime.hora;
-        bfMin3[0] = datalog.dateTime.min;
-        bfDia3[0] = datalog.dateTime.dia;
+        bfHora3[0] = datalog.dateTime.time.hour;
+        bfMin3[0] = datalog.dateTime.time.min;
+        bfDia3[0] = datalog.dateTime.date.day;
         bfReset3[0] = datalog.reset;
 
         break;

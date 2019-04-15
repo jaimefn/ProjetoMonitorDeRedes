@@ -72,16 +72,26 @@ typedef struct BtnControl
   uint16_t tempo;
 };
 
+typedef struct Date
+{
+  uint16_t year;
+  uint8_t mouth;
+  uint8_t day;
+};
+
+typedef struct Time1
+{
+  uint8_t hour;
+  uint8_t min;
+  uint8_t sec;
+};
+
+
 typedef struct DateTime
 {
-  //Relogio
-  int seg;
-  int min;
-  int hora;
-  int dia;
-  int diaSemana;
-  int mes;
-  int ano;
+  Date date;
+  Time1 time;
+  uint8_t dayOfWeek;
 };
 
 typedef struct DataLog
