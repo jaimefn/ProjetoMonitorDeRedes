@@ -294,10 +294,11 @@ void MaquinaDeEstado::IncrementarContagemDePingsEnviados()
 void MaquinaDeEstado::AtualizarColecaoDeDados(uint8_t sinalizarRedeResetada)
 {
     DataLog datalog;
-    Relogio relogio;
-    datalog.dateTime.time.hour = relogio.getHour();
-    datalog.dateTime.time.min = relogio.getMin();
-    datalog.dateTime.date.day = relogio.getDay();
+    RelogioRTC r(20,21);
+    Time dt = r.getTime();
+    datalog.dateTime.time.hour = dt.hour;
+    datalog.dateTime.time.min = dt.min;
+    datalog.dateTime.date.day = dt.date;
     datalog.ping = MDE.redeMonitorada[MDE.idDaRedeEmAnalise].numeroDeTimeOut;
     datalog.lat = latencia.CalcularMedia(MDE.idDaRedeEmAnalise);
     datalog.reset = (bool)sinalizarRedeResetada;

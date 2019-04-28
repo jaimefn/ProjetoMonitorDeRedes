@@ -2,7 +2,7 @@
 #define _LOG_DE_FALHA_H
 
 #include <Headers\StructData.h>
-#include <Headers\Relogio.h>
+#include <Headers\RelogioRTC.h>
 #include <SPI.h>
 #include <SD.h>
 

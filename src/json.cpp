@@ -208,7 +208,7 @@ void JSon::EnviarDadosDoLog()
     char bfDados[10];
     char *page;
 
-    Serial.println("--EnviarDadosDoLog()--");
+    //Serial.println("--EnviarDadosDoLog()--");
 
     Cabecalho();
 

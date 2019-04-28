@@ -24,11 +24,21 @@ void Inserir_logfalhas()
 
         page = PSTR("</div>\r\n"
             "<div class='row'>\r\n"
-            "<ul id='LogList' class='list-group'>\r\n");
+
+
+
+      "<div class='panel panel-default'>\r\n"
+                      "<div class='panel-heading'><h4>Log - SD CARD</h4></div>\r\n"
+                      "<div class='panel-body'>\r\n"
+"<div style='overflow-x:scroll'>\r\n"
+"<div style='width: 900px; height: 200px'>"
+
+
+          "<ul id='LogList' class='list-group'>\r\n");
 
     ether.fillAndSend(page, sizeof page);
 
-    File myFile = SD.open("Dados.txt");
+    File myFile = SD.open("log.txt");
     if (myFile)
     {
         int num_bytes_read = 0;
@@ -72,9 +82,13 @@ void Inserir_logfalhas()
         page = PSTR("<li class='list-group-item'><p>Nao foi possivel acessar o arquivo!</p></li>\r\n");
         ether.fillAndSend(page, sizeof page);
     }
-
     page = PSTR("</ul>\r\n"
-                "<button type='button' id='btnClearLog' class='btn btn-primary btn-md'>Apagar Log</button>\r\n"
+"</div>\r\n"
+ "</div>\r\n"
+               "<button type='button' id='btnClearLog' class='btn btn-primary btn-md'>Apagar Log</button>\r\n"
+
+                "</div>\r\n"
+                "</div>\r\n"
                 "</div>\r\n"
                 "</div>\r\n</div>\r\n");
     ether.fillAndSend(page, sizeof page);

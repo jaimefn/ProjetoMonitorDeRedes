@@ -12,19 +12,26 @@ void LogDeFalhas::CriarLog(byte identificador){
 
 
 void LogDeFalhas::LimparLog(){
-    SD.remove("Dados.txt");
+    SD.remove("log.txt");
 }
 
 
 void LogDeFalhas::grava_SD(byte identificador)
 {
-  String dateTime = relogio.GetTimeString();
+    char bfString[60];
+    RelogioRTC r(20,21);
+    Time dt = r.getTime(); 
+   sprintf(bfString, "%02d:%02d:%02d - %02d/%02d/%04d",dt.hour,dt.min,dt.sec,dt.date,dt.mon,dt.year);
+
+
   if(abre_arquivo_gravacao("log.txt")){
   
-    file.print(dateTime);
-    file.print(" -> Rede[");
+    file.print("Rede[");
     file.print(identificador);
-    file.println("];");
+    file.println("]: ");
+    file.println("RESETOU - ");
+    file.print(bfString);  
+    file.println(";");
 
   fecha_arquivo();
 

@@ -17,7 +17,6 @@ void RelogioRTC::begin()
 }
 
 char *RelogioRTC::getDateTimeFormated(){
-
 }
 
 void RelogioRTC::UpdateTime()

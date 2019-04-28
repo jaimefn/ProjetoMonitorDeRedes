@@ -52,7 +52,7 @@ bool CtrlSaidas::RetornarStatusDasSaidas(uint8_t saida)
            // Serial.print("valor saida: ");
            // Serial.println(val);
 
-            if(val < 500) status = true;        
+            if(val > 500) status = true;        
     }
 
     return status;

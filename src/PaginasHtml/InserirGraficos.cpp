@@ -16,7 +16,7 @@ void InserirGraficos()
                       "</div>\r\n"
 
       "<div class='panel panel-default'>\r\n"
-                      "<div class='panel-heading'>Rede 2</div>\r\n"
+                      "<div class='panel-heading'><h4>Rede 2</h4></div>\r\n"
                       "<div class='panel-body'>\r\n"
 "<div style='overflow-x:scroll'>\r\n"
 "<div style='width: 1000px; height: 200px' id='cc3'></div>\r\n"
@@ -27,7 +27,7 @@ void InserirGraficos()
                       "</div>\r\n"
 
       "<div class='panel panel-default'>\r\n"
-                      "<div class='panel-heading'>Rede 3</div>\r\n"
+                      "<div class='panel-heading'><h4>Rede 3</h4></div>\r\n"
                       "<div class='panel-body'>\r\n"
 "<div style='overflow-x:scroll'>\r\n"
 "<div style='width: 1000px; height: 200px' id='cc5'></div>\r\n"
@@ -38,7 +38,7 @@ void InserirGraficos()
                       "</div>\r\n"
 
       "<div class='panel panel-default'>\r\n"
-                      "<div class='panel-heading'>Rede 4</div>\r\n"
+                      "<div class='panel-heading'><h4>Rede 4</h4></div>\r\n"
                       "<div class='panel-body'>\r\n"
 "<div style='overflow-x:scroll'>\r\n"
 "<div style='width: 1000px; height: 200px' id='cc7'></div>\r\n"
